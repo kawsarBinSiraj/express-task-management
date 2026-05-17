@@ -17,75 +17,6 @@ Users can create, view, update, and delete tasks. Each task supports a title, de
 - bcryptjs password hashing
 - Morgan HTTP logging
 
-## Quick Start
-
-### 1. Install dependencies
-
-```bash
-npm install
-```
-
-### 2. Configure environment
-
-Copy `.env.example` to `.env` and adjust the values:
-
-```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/starter_kit?schema=public"
-JWT_SECRET=your_super_secret_key
-NODE_ENV=development
-PORT=5000
-```
-
-### 3. Generate Prisma client
-
-```bash
-npm run db:generate
-```
-
-Prisma 7 generates the client into `src/generated/prisma`, so run this again after schema changes.
-
-### 4. Push schema or run migrations
-
-```bash
-npm run db:push
-```
-
-Or, if you want migration files:
-
-```bash
-npm run db:migrate
-```
-
-### 5. Start the full app in development
-
-```bash
-npm run dev
-```
-
-This starts:
-
-- the Express backend at `http://localhost:5000`
-- the React client panel on the main domain via Express
-- the API under `http://localhost:5000/api`
-
-## Scripts
-
-- `npm run dev` starts Express and the Vite-powered client panel together
-- `npm run dev:server` starts only the Express backend
-- `npm run dev:client` starts only the client Vite dev server
-- `npm run build` compiles the backend and builds the client assets into `build/`
-- `npm run start` runs the compiled production build
-- `npm run db:generate` regenerates the Prisma client
-- `npm run db:push` pushes the schema without migrations
-- `npm run db:migrate` creates and applies migrations
-- `npm run db:studio` opens Prisma Studio
-
-## Notes
-
-- Prisma 7 now uses `prisma.config.ts` for the datasource URL.
-- The app uses `@prisma/adapter-pg` with the `pg` driver for standard PostgreSQL connections.
-- `DATABASE_URL` is required when the server starts and when Prisma generates the client.
-
 ## API Endpoints
 
 ### Health
@@ -103,25 +34,38 @@ This starts:
 - `PATCH /api/tasks/:id` — update a task (title, description, status, priority)
 - `DELETE /api/tasks/:id` — delete a task
 
-## Task Model
-
-| Field       | Type     | Description                                   |
-|-------------|----------|-----------------------------------------------|
-| id          | UUID     | Auto-generated                                |
-| title       | String   | Task title                                    |
-| description | String?  | Optional description                          |
-| status      | Enum     | `TODO`, `IN_PROGRESS`, `DONE`                 |
-| priority    | Enum     | `LOW`, `MEDIUM`, `HIGH`                       |
-| userId      | UUID     | Owner (foreign key → User)                    |
-| createdAt   | DateTime | Auto-set on creation                          |
-| updatedAt   | DateTime | Auto-updated on change                        |
-
 ## Routing Model
 
 - `/api/auth/*` — authentication routes
 - `/api/tasks/*` — task CRUD routes (protected)
 - any other browser route → React client panel
 - React Router manages client-side pages (dashboard, task list, task detail, etc.)
+
+## API Documentation (Swagger UI)
+
+Interactive API docs are available via **Swagger UI Express** at:
+
+```
+http://localhost:5000/api/docs
+```
+
+The raw OpenAPI 3.0.3 JSON spec is also served at:
+
+```
+http://localhost:5000/api/docs.json
+```
+
+### Features
+- Browse all endpoints grouped by tag: **Health**, **Auth**, **Tasks**, **Users**
+- View request bodies, query parameters, and response schemas
+- Authenticate with a Bearer JWT token using the **Authorize** button (top-right) — authorization persists across page reloads
+- Try out requests directly in the browser
+
+### Usage
+1. Start the server: `npm run dev`
+2. Open `http://localhost:5000/api/docs` in your browser
+3. Sign in via `POST /api/v1/auth/signin` to get a JWT
+4. Click **Authorize**, paste the token, and all protected endpoints become testable
 
 ## License
 
