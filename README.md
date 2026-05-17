@@ -17,30 +17,6 @@ Users can create, view, update, and delete tasks. Each task supports a title, de
 - bcryptjs password hashing
 - Morgan HTTP logging
 
-## API Endpoints
-
-### Health
-- `GET /api/health`
-
-### Auth
-- `POST /api/auth/signup` — register a new user
-- `POST /api/auth/signin` — sign in and receive a JWT
-- `GET /api/auth/me` — get the authenticated user's profile
-
-### Tasks (requires auth)
-- `GET /api/tasks` — list all tasks for the authenticated user
-- `POST /api/tasks` — create a new task
-- `GET /api/tasks/:id` — get a single task
-- `PATCH /api/tasks/:id` — update a task (title, description, status, priority)
-- `DELETE /api/tasks/:id` — delete a task
-
-## Routing Model
-
-- `/api/auth/*` — authentication routes
-- `/api/tasks/*` — task CRUD routes (protected)
-- any other browser route → React client panel
-- React Router manages client-side pages (dashboard, task list, task detail, etc.)
-
 ## API Documentation (Swagger UI)
 
 Interactive API docs are available via **Swagger UI Express** at:
