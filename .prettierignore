@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  .prettierignore
+#  ─────────────────────────────────────────────────────────────────────────────
+#  Lists files and directories that Prettier should NOT format.
+#
+#  Rules mirror .gitignore where possible so that auto-generated,
+#  vendored, or binary assets are never touched by the formatter.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Build output ──────────────────────────────────────────────────────────────
+# The compiled JavaScript lives here — format TypeScript source instead.
+build/
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+# Third-party code should never be reformatted.
+node_modules/
+
+# ── Prisma generated client ───────────────────────────────────────────────────
+# The Prisma client is auto-generated on every `prisma generate` run.
+# Formatting it wastes time and can conflict with generation output.
+node_modules/.prisma/
+node_modules/@prisma/
+
+# ── Lock files ────────────────────────────────────────────────────────────────
+# Package manager lock files have their own deterministic format.
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ── Coverage reports ──────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ── Log files ─────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Environment files ─────────────────────────────────────────────────────────
+# Env files may contain sensitive data; keep them as-is.
+.env
+.env.*

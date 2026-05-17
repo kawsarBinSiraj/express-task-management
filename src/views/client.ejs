@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin Panel</title>
+        <% for (const href of entryStyles) { %>
+        <link rel="stylesheet" href="<%= href %>" />
+        <% } %>
+        <% if (isDev) { %>
+        <script type="module">
+            import RefreshRuntime from '<%= viteDevServerUrl %>/@react-refresh';
+            RefreshRuntime.injectIntoGlobalHook(window);
+            window.$RefreshReg$ = () => {};
+            window.$RefreshSig$ = () => (sig) => sig;
+            window.__vite_plugin_react_preamble_installed__ = true;
+        </script>
+        <script type="module" src="<%= viteDevServerUrl %>/@vite/client"></script>
+        <% } %>
+    </head>
+    <body>
+        <div id="root"></div>
+        <% if (isDev) { %>
+        <script type="module" src="<%= viteDevServerUrl %><%= entryScript %>"></script>
+        <% } else { %>
+        <script type="module" src="<%= entryScript %>"></script>
+        <% } %>
+    </body>
+    </html>
