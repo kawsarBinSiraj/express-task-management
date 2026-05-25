@@ -27,6 +27,10 @@ const config = {
          * Example: postgresql://postgres:password@localhost:5432/app_db?schema=public
          */
         url: process.env.DATABASE_URL ?? '',
+        /*
+         * Direct (non-pooled) connection used by Prisma Migrate.
+         */
+        directUrl: process.env.DIRECT_URL ?? '',
     },
 
     jwt: {

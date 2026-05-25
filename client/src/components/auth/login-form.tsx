@@ -185,7 +185,7 @@ export function LoginForm() {
             </CardContent>
 
             <CardFooter className="flex flex-col gap-4 pt-2">
-               <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-gradient-to-b from-slate-700 to-slate-900 text-sm font-semibold text-white hover:from-slate-600 hover:to-slate-800 active:scale-[0.99] dark:from-slate-800 dark:to-slate-950 dark:hover:from-slate-700 dark:hover:to-slate-900" disabled={isPending}>
+               <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
                   {isPending ? "Signing in…" : "Sign in"}
                </Button>
 
