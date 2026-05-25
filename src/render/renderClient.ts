@@ -11,7 +11,7 @@ type ViteManifestEntry = {
 type ViteManifest = Record<string, ViteManifestEntry>;
 
 const projectRoot = process.cwd();
-const clientBuildDir = path.resolve(projectRoot, 'build/public');
+const clientBuildDir = path.resolve(projectRoot, 'dist/public');
 const manifestPath = path.resolve(clientBuildDir, '.vite/manifest.json');
 const viteDevServerUrl = process.env.CLIENT_VITE_DEV_SERVER_URL ?? `http://localhost:${process.env.VITE_PORT ?? '5173'}`;
 

@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "NodeNext",
     "lib": ["ES2020"],
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "allowJs": true,
@@ -24,5 +24,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "prisma"]
+  "exclude": ["node_modules", "dist", "prisma"]
 }
