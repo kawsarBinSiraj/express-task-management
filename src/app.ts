@@ -21,7 +21,7 @@ import config from './config';
 /* createApp: Build and return the configured Express application. */
 const createApp = (): Application => {
     const app = express();
-    const viewsDir = path.resolve(process.cwd(), 'src/views');
+    const viewsDir = path.resolve(__dirname, 'views');
     const clientStaticDir = getClientStaticDir();
 
     app.set('view engine', 'ejs');
