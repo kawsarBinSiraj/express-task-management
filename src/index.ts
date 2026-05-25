@@ -1,5 +1,5 @@
 /**
- * File: src/server.ts
+ * File: src/index.ts
  * Purpose: Application entry point that starts the server and handles shutdown.
  */
 

@@ -5,14 +5,14 @@
   "installCommand": "npm install",
   "builds": [
     {
-      "src": "dist/server.js",
+      "src": "dist/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/server.js"
+      "dest": "dist/index.js"
     }
   ]
 }
