@@ -21,11 +21,11 @@ import config from './config';
 /* createApp: Build and return the configured Express application. */
 const createApp = (): Application => {
     const app = express();
-    const viewsDir = path.resolve(process.cwd(), 'src/views');
+    // const viewsDir = path.resolve(process.cwd(), 'src/views');
     const clientStaticDir = getClientStaticDir();
 
-    app.set('view engine', 'ejs');
-    app.set('views', viewsDir);
+    // app.set('view engine', 'ejs');
+    // app.set('views', viewsDir);
 
     /* Security middleware: helmet and CORS for headers and cross-origin access.
      * In development the Vite dev-server runs on a separate origin (localhost:5173),
