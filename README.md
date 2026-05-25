@@ -44,5 +44,4 @@ http://localhost:5000/api/docs.json
 4. Click **Authorize**, paste the token, and all protected endpoints become testable
 
 ## License
-
 MIT
