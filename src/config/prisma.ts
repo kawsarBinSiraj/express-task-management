@@ -5,6 +5,7 @@
 
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client.js';
+import config from './index';
 import logger from '../utils/logger';
 
 /* Typed global cache for the PrismaClient instance. */
@@ -12,9 +13,7 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
+if (!config.database.url) {
   throw new Error('Missing required environment variable: DATABASE_URL');
 }
 
@@ -22,15 +21,15 @@ if (!connectionString) {
 const prisma: PrismaClient =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter: new PrismaPg({ connectionString }),
+    adapter: new PrismaPg({ connectionString: config.database.url }),
     log:
-      process.env.NODE_ENV === 'development'
+      config.env === 'development'
         ? ['query', 'error', 'warn']
         : ['error'],
   });
 
 /* Cache PrismaClient on globalThis only in development to avoid leaks. */
-if (process.env.NODE_ENV !== 'production') {
+if (config.env !== 'production') {
   globalForPrisma.prisma = prisma;
 }
 

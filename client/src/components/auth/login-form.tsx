@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Check, Copy, Eye, EyeOff, KeyRound, Sparkles } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, KeyRound, Sparkles } from "lucide-react";
 import { useLogin } from "@/hooks/auth/use-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,6 @@ export function LoginForm() {
    const { mutate: login, isPending, error } = useLogin();
    const [showPassword, setShowPassword] = React.useState(false);
    const [showCredentials, setShowCredentials] = React.useState(false);
-   const [copied, setCopied] = React.useState<"email" | "password" | null>(null);
    const hideCredentialsTimeout = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
    function handleCredentialsEnter() {
@@ -48,15 +47,10 @@ export function LoginForm() {
       hideCredentialsTimeout.current = setTimeout(() => setShowCredentials(false), 300);
    }
 
-   function copyToClipboard(text: string, field: "email" | "password") {
-      navigator.clipboard.writeText(text);
-      setCopied(field);
-      setTimeout(() => setCopied(null), 2000);
-   }
-
    const {
       register,
       handleSubmit,
+      setValue,
       formState: { errors },
    } = useForm<LoginFields>({
       resolver: yupResolver(loginSchema),
@@ -79,7 +73,7 @@ export function LoginForm() {
          {/* Header */}
          <CardHeader className="space-y-3 pb-3">
             <div className="flex items-center gap-2">
-               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/80 bg-gradient-to-b from-amber-50 to-amber-100/80 px-3 py-1 text-xs font-medium text-amber-800 dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-300">
                   <Sparkles className="size-3.5" />
                   Welcome back
                </div>
@@ -99,27 +93,29 @@ export function LoginForm() {
                   </button>
 
                   {showCredentials && (
-                     <div className="absolute right-0 top-9 z-20 w-60 rounded-2xl border border-amber-200/70 bg-white p-3 shadow-lg shadow-amber-900/10 dark:border-amber-500/20 dark:bg-slate-900">
+                     <div className="absolute right-0 top-9 z-20 w-56 rounded-2xl border border-amber-200/70 bg-white p-3 shadow-lg shadow-amber-900/10 dark:border-amber-500/20 dark:bg-slate-900">
                         <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">Demo credentials</p>
-                        {([
-                           { label: "Email", value: "admin@example.com", field: "email" as const },
-                           { label: "Password", value: "Admin@123", field: "password" as const },
-                        ]).map(({ label, value, field }) => (
-                           <div key={field} className="flex items-center justify-between gap-2 rounded-lg px-2 py-1.5 hover:bg-amber-50/80 dark:hover:bg-amber-500/10">
-                              <div className="min-w-0">
-                                 <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">{label}</p>
-                                 <p className="truncate text-xs font-medium text-slate-700 dark:text-slate-200">{value}</p>
-                              </div>
-                              <button
-                                 type="button"
-                                 onClick={() => copyToClipboard(value, field)}
-                                 className="shrink-0 rounded-md p-1 text-slate-400 transition-colors hover:text-amber-600 dark:hover:text-amber-400"
-                                 aria-label={`Copy ${label}`}
-                              >
-                                 {copied === field ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
-                              </button>
+                        <div className="rounded-lg bg-amber-50/60 px-2.5 py-2 dark:bg-amber-500/10">
+                           <div className="mb-1">
+                              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Email</p>
+                              <p className="text-xs font-medium text-slate-700 dark:text-slate-200">admin@example.com</p>
                            </div>
-                        ))}
+                           <div>
+                              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Password</p>
+                              <p className="text-xs font-medium text-slate-700 dark:text-slate-200">Admin@123</p>
+                           </div>
+                        </div>
+                        <button
+                           type="button"
+                           onClick={() => {
+                              setValue("email", "admin@example.com", { shouldValidate: true });
+                              setValue("password", "Admin@123", { shouldValidate: true });
+                           }}
+                           className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-xl border border-amber-200 bg-gradient-to-b from-amber-50 to-amber-100/80 py-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 transition-all hover:from-amber-100 hover:to-amber-200/80 active:scale-[0.98] dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-400 dark:hover:from-amber-500/25 dark:hover:to-amber-500/15"
+                        >
+                           <KeyRound className="size-3" />
+                           Fill all fields
+                        </button>
                      </div>
                   )}
                </div>
@@ -185,10 +181,11 @@ export function LoginForm() {
                   </div>
                   {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
                </div>
+
             </CardContent>
 
             <CardFooter className="flex flex-col gap-4 pt-2">
-               <Button type="submit" className="h-11 w-full rounded-xl text-sm font-semibold" disabled={isPending}>
+               <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-gradient-to-b from-slate-700 to-slate-900 text-sm font-semibold text-white hover:from-slate-600 hover:to-slate-800 active:scale-[0.99] dark:from-slate-800 dark:to-slate-950 dark:hover:from-slate-700 dark:hover:to-slate-900" disabled={isPending}>
                   {isPending ? "Signing in…" : "Sign in"}
                </Button>
 
