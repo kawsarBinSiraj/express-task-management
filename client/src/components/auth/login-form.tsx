@@ -111,7 +111,7 @@ export function LoginForm() {
                               setValue("email", "admin@example.com", { shouldValidate: true });
                               setValue("password", "Admin@123", { shouldValidate: true });
                            }}
-                           className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-xl border border-amber-200 bg-gradient-to-b from-amber-50 to-amber-100/80 py-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 transition-all hover:from-amber-100 hover:to-amber-200/80 active:scale-[0.98] dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-400 dark:hover:from-amber-500/25 dark:hover:to-amber-500/15"
+                           className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-full border border-amber-200 bg-gradient-to-b from-amber-50 to-amber-100/80 py-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 transition-all hover:from-amber-100 hover:to-amber-200/80 active:scale-[0.98] dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-400 dark:hover:from-amber-500/25 dark:hover:to-amber-500/15"
                         >
                            <KeyRound className="size-3" />
                            Fill all fields
@@ -130,7 +130,7 @@ export function LoginForm() {
             <CardContent className="flex flex-col gap-5">
                {/* Server error banner */}
                {error && (
-                  <div role="alert" className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+                  <div role="alert" className="rounded-full border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
                      {error.message}
                   </div>
                )}
@@ -145,7 +145,7 @@ export function LoginForm() {
                      type="email"
                      placeholder="you@example.com"
                      autoComplete="email"
-                     className="h-11 rounded-xl bg-white/90 dark:bg-slate-900/80"
+                     className="h-11 rounded-full px-5 bg-white/90 dark:bg-slate-900/80"
                      {...register("email")}
                   />
                   {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
@@ -167,13 +167,13 @@ export function LoginForm() {
                         type={showPassword ? "text" : "password"}
                         placeholder="········"
                         autoComplete="current-password"
-                        className="h-11 rounded-xl bg-white/90 pr-10 dark:bg-slate-900/80"
+                        className="h-11 rounded-full px-5 bg-white/90 pr-10 dark:bg-slate-900/80"
                         {...register("password")}
                      />
                      <button
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
-                        className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                        className="absolute inset-y-0 right-4 flex items-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                         aria-label={showPassword ? "Hide password" : "Show password"}
                      >
                         {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -185,7 +185,7 @@ export function LoginForm() {
             </CardContent>
 
             <CardFooter className="flex flex-col gap-4 pt-2">
-               <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
+               <Button type="submit" className="h-11 w-full cursor-pointer rounded-full bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
                   {isPending ? "Signing in…" : "Sign in"}
                </Button>
 
@@ -199,13 +199,6 @@ export function LoginForm() {
                </div>
 
                <GoogleLogin onSuccess={handleGoogleSuccess} />
-
-               <p className="text-center text-sm text-slate-600 dark:text-slate-300">
-                  Don&apos;t have an account?{" "}
-                  <Link to="/signup" className="font-semibold text-slate-900 underline-offset-4 hover:underline dark:text-slate-100">
-                     Sign up
-                  </Link>
-               </p>
             </CardFooter>
          </form>
       </Card>

@@ -64,7 +64,7 @@ export function VerifyForm() {
                </CardDescription>
             </CardHeader>
             <CardFooter>
-               <Button asChild className="h-11 w-full rounded-xl text-sm font-semibold">
+               <Button asChild className="h-11 w-full rounded-full text-sm font-semibold">
                   <Link to="/login">Back to login</Link>
                </Button>
             </CardFooter>
@@ -93,7 +93,7 @@ export function VerifyForm() {
                {error && (
                   <div
                      role="alert"
-                     className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive"
+                     className="rounded-full border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive"
                   >
                      {error.message}
                   </div>
@@ -111,7 +111,7 @@ export function VerifyForm() {
                      maxLength={6}
                      placeholder="000000"
                      autoComplete="one-time-code"
-                     className="h-11 rounded-xl bg-white/90 text-center font-mono tracking-[0.5em] dark:bg-slate-900/80"
+                     className="h-11 rounded-full px-5 bg-white/90 text-center font-mono tracking-[0.5em] dark:bg-slate-900/80"
                      {...register("code")}
                   />
                   {errors.code && <p className="text-xs text-destructive">{errors.code.message}</p>}
@@ -119,7 +119,7 @@ export function VerifyForm() {
             </CardContent>
 
             <CardFooter className="flex flex-col gap-4 pt-2">
-               <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
+               <Button type="submit" className="h-11 w-full cursor-pointer rounded-full bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
                   {isPending ? "Verifying…" : "Verify"}
                </Button>
 

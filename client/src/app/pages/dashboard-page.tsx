@@ -54,20 +54,6 @@ export function DashboardPage() {
             {isAdmin ? (
                <>
                   <StatCard
-                     title="Total Users"
-                     value={stats ? String(stats.totalUsers) : '—'}
-                     label="Registered accounts"
-                     icon={<Users className="size-6 text-white" />}
-                     gradient="from-red-400 to-rose-500"
-                  />
-                  <StatCard
-                     title="Total Tasks"
-                     value={stats ? String(stats.totalTasks) : '—'}
-                     label="Across all members"
-                     icon={<ClipboardList className="size-6 text-white" />}
-                     gradient="from-violet-400 to-purple-500"
-                  />
-                  <StatCard
                      title="Admins"
                      value={stats ? String(stats.totalAdmins) : '—'}
                      label="Administrator accounts"
@@ -80,6 +66,13 @@ export function DashboardPage() {
                      label="Regular member accounts"
                      icon={<UserRound className="size-6 text-white" />}
                      gradient="from-sky-400 to-blue-500"
+                  />
+                  <StatCard
+                     title="Total Tasks"
+                     value={stats ? String(stats.totalTasks) : '—'}
+                     label="Across all members"
+                     icon={<ClipboardList className="size-6 text-white" />}
+                     gradient="from-violet-400 to-purple-500"
                   />
                </>
             ) : (

@@ -79,7 +79,7 @@ export function ResetForm() {
                     </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                    <Button asChild variant="outline" className="h-11 w-full rounded-xl text-sm font-semibold">
+                    <Button asChild variant="outline" className="h-11 w-full rounded-full text-sm font-semibold">
                         <Link to="/forgot">Request new link</Link>
                     </Button>
                 </CardFooter>
@@ -102,7 +102,7 @@ export function ResetForm() {
                     </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                    <Button asChild className="h-11 w-full rounded-xl text-sm font-semibold">
+                    <Button asChild className="h-11 w-full rounded-full text-sm font-semibold">
                         <Link to="/login">Back to login</Link>
                     </Button>
                 </CardFooter>
@@ -129,7 +129,7 @@ export function ResetForm() {
                 <CardContent className="flex flex-col gap-5">
                     {/* Server error banner */}
                     {error && (
-                        <div role="alert" className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+                        <div role="alert" className="rounded-full border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
                             {error.message}
                         </div>
                     )}
@@ -144,7 +144,7 @@ export function ResetForm() {
                             type="password"
                             placeholder="········"
                             autoComplete="new-password"
-                            className="h-11 rounded-xl bg-white/90 dark:bg-slate-900/80"
+                            className="h-11 rounded-full px-5 bg-white/90 dark:bg-slate-900/80"
                             {...register("newPassword")}
                         />
                         {errors.newPassword && (
@@ -162,7 +162,7 @@ export function ResetForm() {
                             type="password"
                             placeholder="········"
                             autoComplete="new-password"
-                            className="h-11 rounded-xl bg-white/90 dark:bg-slate-900/80"
+                            className="h-11 rounded-full px-5 bg-white/90 dark:bg-slate-900/80"
                             {...register("confirmPassword")}
                         />
                         {errors.confirmPassword && (
@@ -172,7 +172,7 @@ export function ResetForm() {
                 </CardContent>
 
                 <CardFooter className="flex flex-col gap-4 pt-2">
-                    <Button type="submit" className="h-11 w-full cursor-pointer rounded-xl bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
+                    <Button type="submit" className="h-11 w-full cursor-pointer rounded-full bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
                         {isPending ? "Updating…" : "Update password"}
                     </Button>
 

@@ -58,7 +58,7 @@ function GoogleLoginButton({ onSuccess }: GoogleLoginProps) {
       <Button
          type="button"
          variant="outline"
-         className="h-11 w-full rounded-xl border-slate-200 bg-white/80 font-medium hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:bg-slate-800"
+         className="h-11 w-full rounded-full border-slate-200 bg-white/80 font-medium hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:bg-slate-800"
          disabled={!clientId || isLoading}
          onClick={handleLogin}
       >
@@ -70,7 +70,7 @@ function GoogleLoginButton({ onSuccess }: GoogleLoginProps) {
 export default function GoogleLogin({ onSuccess }: GoogleLoginProps) {
    if (!clientId) {
       return (
-         <Button type="button" variant="outline" className="h-11 w-full rounded-xl" disabled>
+         <Button type="button" variant="outline" className="h-11 w-full rounded-full" disabled>
             Continue with Google
          </Button>
       );
