@@ -4,7 +4,7 @@
   "description": "Production-ready Node.js + Express + TypeScript + Prisma + JWT starter kit",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "prisma generate && concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev:client": "vite --config client/vite.config.ts",
     "build": "prisma generate && tsc && vite build --config client/vite.config.ts",
