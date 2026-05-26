@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Eye, EyeOff, KeyRound, Sparkles } from "lucide-react";
+import { Eye, EyeOff, KeyRound, Sparkles } from "lucide-react";
 import { useLogin } from "@/hooks/auth/use-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,17 +35,6 @@ type LoginFields = yup.InferType<typeof loginSchema>;
 export function LoginForm() {
    const { mutate: login, isPending, error } = useLogin();
    const [showPassword, setShowPassword] = React.useState(false);
-   const [showCredentials, setShowCredentials] = React.useState(false);
-   const hideCredentialsTimeout = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-   function handleCredentialsEnter() {
-      if (hideCredentialsTimeout.current) clearTimeout(hideCredentialsTimeout.current);
-      setShowCredentials(true);
-   }
-
-   function handleCredentialsLeave() {
-      hideCredentialsTimeout.current = setTimeout(() => setShowCredentials(false), 300);
-   }
 
    const {
       register,
@@ -61,12 +50,16 @@ export function LoginForm() {
       login({ email: data.email, password: data.password });
    }
 
+   function fillDemoCredentials() {
+      setValue("email", "admin@example.com", { shouldValidate: true });
+      setValue("password", "Admin@123", { shouldValidate: true });
+   }
+
    function handleGoogleSuccess({ tokenResponse, tokenInfo, isLoading }: GoogleLoginSuccessPayload) {
       console.log("[Google OAuth] isLoading", isLoading);
       console.log("[Google OAuth] tokenResponse", tokenResponse);
       console.log("[Google OAuth] tokenInfo", tokenInfo);
    }
-
 
    return (
       <Card className="mx-auto w-full max-w-md rounded-3xl border-white/50 bg-white/85 shadow-2xl shadow-amber-950/10 backdrop-blur-md dark:border-white/10 dark:bg-slate-950/65 dark:shadow-black/40">
@@ -76,48 +69,6 @@ export function LoginForm() {
                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/80 bg-gradient-to-b from-amber-50 to-amber-100/80 px-3 py-1 text-xs font-medium text-amber-800 dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-300">
                   <Sparkles className="size-3.5" />
                   Welcome back
-               </div>
-
-               {/* Demo credentials hint */}
-               <div
-                  className="relative ml-auto"
-                  onMouseEnter={handleCredentialsEnter}
-                  onMouseLeave={handleCredentialsLeave}
-               >
-                  <button
-                     type="button"
-                     className="flex size-7 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-amber-600 transition-colors hover:bg-amber-100 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-400 dark:hover:bg-amber-500/20"
-                     aria-label="Show demo credentials"
-                  >
-                     <KeyRound className="size-3.5" />
-                  </button>
-
-                  {showCredentials && (
-                     <div className="absolute right-0 top-9 z-20 w-56 rounded-2xl border border-amber-200/70 bg-white p-3 shadow-lg shadow-amber-900/10 dark:border-amber-500/20 dark:bg-slate-900">
-                        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">Demo credentials</p>
-                        <div className="rounded-lg bg-amber-50/60 px-2.5 py-2 dark:bg-amber-500/10">
-                           <div className="mb-1">
-                              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Email</p>
-                              <p className="text-xs font-medium text-slate-700 dark:text-slate-200">admin@example.com</p>
-                           </div>
-                           <div>
-                              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Password</p>
-                              <p className="text-xs font-medium text-slate-700 dark:text-slate-200">Admin@123</p>
-                           </div>
-                        </div>
-                        <button
-                           type="button"
-                           onClick={() => {
-                              setValue("email", "admin@example.com", { shouldValidate: true });
-                              setValue("password", "Admin@123", { shouldValidate: true });
-                           }}
-                           className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-full border border-amber-200 bg-gradient-to-b from-amber-50 to-amber-100/80 py-2 text-[10px] font-semibold uppercase tracking-wider text-amber-700 transition-all hover:from-amber-100 hover:to-amber-200/80 active:scale-[0.98] dark:border-amber-500/25 dark:from-amber-500/15 dark:to-amber-500/10 dark:text-amber-400 dark:hover:from-amber-500/25 dark:hover:to-amber-500/15"
-                        >
-                           <KeyRound className="size-3" />
-                           Fill all fields
-                        </button>
-                     </div>
-                  )}
                </div>
             </div>
             <CardTitle className="text-3xl tracking-tight">Sign in</CardTitle>
@@ -181,15 +132,25 @@ export function LoginForm() {
                   </div>
                   {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
                </div>
-
             </CardContent>
 
-            <CardFooter className="flex flex-col gap-4 pt-2">
+            <CardFooter className="flex flex-col gap-2 pt-2">
                <Button type="submit" className="h-11 w-full cursor-pointer rounded-full bg-amber-500 text-sm font-semibold text-white hover:bg-amber-500/80 active:scale-[0.99] dark:bg-amber-500 dark:hover:bg-amber-500/80" disabled={isPending}>
                   {isPending ? "Signing in…" : "Sign in"}
                </Button>
 
-               <div className="relative w-full py-1">
+               {/* Demo credentials button */}
+               <Button
+                  type="button"
+                  variant="outline"
+                  onClick={fillDemoCredentials}
+                  className="h-11 inline-flex items-center gap-1 w-full cursor-pointer rounded-full border-amber-200 text-sm font-medium text-amber-700 hover:bg-amber-50 dark:border-amber-500/30 dark:text-amber-400 dark:hover:bg-amber-500/10"
+               >
+                  <KeyRound className="size-4 mt-1" />
+                  Use demo credentials
+               </Button>
+
+               <div className="relative w-full py-3">
                   <div className="absolute inset-0 flex items-center">
                      <span className="w-full border-t border-slate-200/80 dark:border-slate-700/70" />
                   </div>
