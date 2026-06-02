@@ -19,8 +19,8 @@ const NAV_ITEMS: NavItem[] = [
    { title: 'Dashboard', href: ROUTES.DASHBOARD, icon: LayoutDashboard },
    { title: 'Tasks', href: ROUTES.TASKS, icon: Kanban  },
    { title: 'Users', href: ROUTES.USERS, icon: Users, adminOnly: true },
-   { title: 'Settings', href: ROUTES.SETTINGS, icon: Settings },
    { title: 'Profile', href: ROUTES.PROFILE, icon: UserRound },
+   { title: 'Settings', href: ROUTES.SETTINGS, icon: Settings },
 ];
 
 export function Sidebar() {
@@ -33,7 +33,7 @@ export function Sidebar() {
       setSidebarOpen(false);
    }, [location.pathname, setSidebarOpen]);
 
-   const isAdmin = user?.role === 'ADMIN';
+   const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
    const visibleItems = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin);
 
    return (
@@ -130,12 +130,6 @@ export function Sidebar() {
                                  >
                                     {item.title}
                                  </span>
-
-                                 {!isSidebarCollapsed && item.adminOnly && (
-                                    <span className="ml-auto rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">
-                                       Admin
-                                    </span>
-                                 )}
                               </>
                            )}
                         </NavLink>

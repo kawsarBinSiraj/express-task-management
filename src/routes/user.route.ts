@@ -10,7 +10,7 @@ import { Role } from '../generated/prisma';
 
 const router = Router();
 
-router.use(authenticate, authorize(Role.ADMIN));
+router.use(authenticate, authorize(Role.ADMIN, Role.SUPER_ADMIN));
 
 /* GET /users/stats — aggregate counts for the admin dashboard */
 router.get('/stats', userController.getStats);

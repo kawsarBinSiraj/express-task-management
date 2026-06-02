@@ -88,16 +88,17 @@ export interface IAdminStats {
 }
 
 export const getStats = async (): Promise<IAdminStats> => {
-  const [totalUsers, totalAdmins, totalTasks] = await Promise.all([
+  const [totalUsers, totalAdmins, totalSuperAdmin, totalTasks] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { role: Role.ADMIN } }),
+    prisma.user.count({ where: { role: Role.SUPER_ADMIN } }),
     prisma.task.count(),
   ]);
 
   return {
     totalUsers,
     totalAdmins,
-    totalMembers: totalUsers - totalAdmins,
+    totalMembers: totalUsers - (totalSuperAdmin + totalAdmins),
     totalTasks,
   };
 };

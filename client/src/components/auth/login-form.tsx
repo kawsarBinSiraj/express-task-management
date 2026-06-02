@@ -51,8 +51,8 @@ export function LoginForm() {
    }
 
    function fillDemoCredentials() {
-      setValue("email", "admin@example.com", { shouldValidate: true });
-      setValue("password", "Admin@123", { shouldValidate: true });
+      setValue("email", "super_admin@example.com", { shouldValidate: true });
+      setValue("password", "super@123", { shouldValidate: true });
    }
 
    function handleGoogleSuccess({ tokenResponse, tokenInfo, isLoading }: GoogleLoginSuccessPayload) {

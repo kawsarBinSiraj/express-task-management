@@ -7,7 +7,7 @@ export interface User {
    id: string;
    email: string;
    name: string;
-   role?: 'ADMIN' | 'USER';
+   role?: 'SUPER_ADMIN' | 'ADMIN' | 'USER';
 }
 
 /** Credentials submitted from the login form */
@@ -168,7 +168,7 @@ export interface UserItem {
    id: string;
    name: string;
    email: string;
-   role: 'ADMIN' | 'USER';
+   role: 'SUPER_ADMIN' | 'ADMIN' | 'USER';
    noOfTask: number;
    createdAt: string;
 }
@@ -181,7 +181,7 @@ export interface UserListResponse {
 export interface UpdateUserInput {
    name?: string;
    email?: string;
-   role?: 'ADMIN' | 'USER';
+   role?: 'SUPER_ADMIN' | 'ADMIN' | 'USER';
 }
 
 export interface DashboardStats {

@@ -11,7 +11,7 @@ import { taskService } from '@/services/task-service';
 export function DashboardPage() {
    const { isLoading, error } = useProfile();
    const user = useAuthStore((state) => state.user);
-   const isAdmin = user?.role === 'ADMIN';
+   const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
 
    // Admin: fetch aggregate stats from /users/stats
    const { data: stats } = useQuery({

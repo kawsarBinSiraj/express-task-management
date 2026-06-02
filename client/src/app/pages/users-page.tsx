@@ -15,6 +15,7 @@ import type { UserItem, UpdateUserInput } from "@/types";
 const LIMIT = 10;
 
 const ROLE_COLORS: Record<string, string> = {
+   SUPER_ADMIN: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300",
    ADMIN: "bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300",
    USER:  "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
 };
@@ -120,22 +121,24 @@ export function UsersPage() {
                                  {new Date(user.createdAt).toLocaleDateString()}
                               </td>
                               <td className="px-4 py-3 whitespace-nowrap">
-                                 <div className="flex items-center gap-1">
-                                    <button
-                                       onClick={() => setEditUser(user)}
-                                       className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
-                                       title="Edit user"
-                                    >
-                                       <Pencil className="size-4" />
-                                    </button>
-                                    <button
-                                       onClick={() => setDeleteUser(user)}
-                                       className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400"
-                                       title="Delete user"
-                                    >
-                                       <Trash2 className="size-4" />
-                                    </button>
-                                 </div>
+                                 {user.role !== "SUPER_ADMIN" && (
+                                    <div className="flex items-center gap-1">
+                                       <button
+                                          onClick={() => setEditUser(user)}
+                                          className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                                          title="Edit user"
+                                       >
+                                          <Pencil className="size-4" />
+                                       </button>
+                                       <button
+                                          onClick={() => setDeleteUser(user)}
+                                          className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+                                          title="Delete user"
+                                       >
+                                          <Trash2 className="size-4" />
+                                       </button>
+                                    </div>
+                                 )}
                               </td>
                            </tr>
                         ))}
@@ -213,7 +216,7 @@ interface EditUserDialogProps {
 function EditUserDialog({ user, isPending, onClose, onSave }: EditUserDialogProps) {
    const [name, setName] = useState(user.name);
    const [email, setEmail] = useState(user.email);
-   const [role, setRole] = useState<"ADMIN" | "USER">(user.role);
+   const [role, setRole] = useState<UserItem["role"]>(user.role);
 
    function handleSubmit(e: React.FormEvent) {
       e.preventDefault();
@@ -257,6 +260,7 @@ function EditUserDialog({ user, isPending, onClose, onSave }: EditUserDialogProp
                      <SelectContent>
                         <SelectItem value="USER">USER</SelectItem>
                         <SelectItem value="ADMIN">ADMIN</SelectItem>
+                        <SelectItem value="SUPER_ADMIN">SUPER_ADMIN</SelectItem>
                      </SelectContent>
                   </Select>
                </div>

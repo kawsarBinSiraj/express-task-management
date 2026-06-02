@@ -35,7 +35,8 @@ export type Task = $Result.DefaultSelection<Prisma.$TaskPayload>
 export namespace $Enums {
   export const Role: {
   USER: 'USER',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
