@@ -24,7 +24,7 @@ const taskSelect = {
 } as const;
 
 export const getTasks = async (userId: string, role: Role, page: number, limit: number): Promise<ITaskListResponse> => {
-   const where = role === Role.ADMIN ? {} : { assignedTo: userId };
+   const where = role === Role.ADMIN || role === Role.SUPER_ADMIN ? {} : { assignedTo: userId };
    const skip = (page - 1) * limit;
 
    const [tasks, total] = await Promise.all([
@@ -58,7 +58,7 @@ export const getTaskById = async (id: string, userId: string, role: Role): Promi
 
    if (!task) throw new AppError('Task not found.', 404);
 
-   if (role !== Role.ADMIN && task.assignedTo !== userId) {
+   if (role !== Role.ADMIN && role !== Role.SUPER_ADMIN && task.assignedTo !== userId) {
       throw new AppError('You do not have access to this task.', 403);
    }
 
@@ -120,6 +120,7 @@ export const deleteTask = async (id: string): Promise<void> => {
 
 export const getMembers = async () => {
    return prisma.user.findMany({
+      where: { role: Role.USER },
       select: { id: true, name: true, email: true },
       orderBy: { name: 'asc' },
    });

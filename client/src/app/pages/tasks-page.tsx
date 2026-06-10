@@ -37,8 +37,9 @@ export function TasksPage() {
       queryKey: ["tasks", page, LIMIT],
       queryFn: () => taskService.getTasks(page, LIMIT),
    });
+   
    const user = useAuthStore((s) => s.user);
-   const isAdmin = user?.role === "ADMIN";
+   const isAdmin = user?.role === "ADMIN" || user?.role === 'SUPER_ADMIN';
    const queryClient = useQueryClient();
 
    const { mutate: deleteTask, isPending: isDeleting } = useMutation({

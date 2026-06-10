@@ -260,7 +260,6 @@ function EditUserDialog({ user, isPending, onClose, onSave }: EditUserDialogProp
                      <SelectContent>
                         <SelectItem value="USER">USER</SelectItem>
                         <SelectItem value="ADMIN">ADMIN</SelectItem>
-                        <SelectItem value="SUPER_ADMIN">SUPER_ADMIN</SelectItem>
                      </SelectContent>
                   </Select>
                </div>

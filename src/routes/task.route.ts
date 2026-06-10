@@ -25,8 +25,8 @@ router.get('/', taskController.getTasks);
 router.get('/:id', taskController.getTaskById);
 
 /* Admin-only mutations */
-router.post('/', authorize(Role.ADMIN), validateRequest(createTaskSchema), taskController.createTask);
-router.put('/:id', authorize(Role.ADMIN), validateRequest(updateTaskSchema), taskController.updateTask);
-router.delete('/:id', authorize(Role.ADMIN), taskController.deleteTask);
+router.post('/', authorize(Role.ADMIN, Role.SUPER_ADMIN), validateRequest(createTaskSchema), taskController.createTask);
+router.put('/:id', authorize(Role.ADMIN, Role.SUPER_ADMIN), validateRequest(updateTaskSchema), taskController.updateTask);
+router.delete('/:id', authorize(Role.ADMIN, Role.SUPER_ADMIN), taskController.deleteTask);
 
 export default router;
